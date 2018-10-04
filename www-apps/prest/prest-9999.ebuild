@@ -8,6 +8,8 @@ EGO_PN="github.com/prest/prest"
 
 DESCRIPTION="pREST is a way to serve a RESTful API from any databases written in Go"
 
+DEPEND="dev-lang/go"
+
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="amd64 x86 arm"
