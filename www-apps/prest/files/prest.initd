@@ -1,0 +1,29 @@
+#!/sbin/openrc-run
+# Copyright 1999-2018 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
+name="prest daemon"
+description="pREST is a way to serve a RESTful API from any databases written in Go"
+
+start() {
+	ebegin "starting ${RC_SVCNAME}"
+	/usr/bin/env PREST_HTTP_HOST=${PREST_HTTP_HOST} \
+	PREST_HTTP_PORT=${PREST_HTTP_PORT} \
+	PREST_PG_HOST=${PREST_PG_HOST} \
+	PREST_PG_USER=${PREST_PG_USER} \
+	PREST_PG_PASS=${PREST_PG_PASS} \
+	PREST_PG_DATABASE=${PREST_PG_DATABASE} \
+	PREST_PG_PORT=${PREST_PG_PORT} \
+	PREST_QUERIES_LOCATION=${PREST_QUERIES_LOCATION:-} \
+	PREST_CORS_ALLOWORIGIN=${PREST_CORS_ALLOWORIGIN:-} \
+	PREST_SSL_MODE=${PREST_SSL_MODE:-} \
+	PREST_JWT_DEFAULT=${PREST_JWT_DEFAULT:-} \
+	start-stop-daemon --start --make-pidfile --background --pidfile /run/${RC_SVCNAME}.pid --exec /usr/bin/prest
+	eend $?
+}
+
+stop() {
+	ebegin "stopping ${RC_SVCNAME}"
+	start-stop-daemon --stop --pidfile /run/${RC_SVCNAME}.pid
+        eend $?
+}

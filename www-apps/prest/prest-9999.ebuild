@@ -80,5 +80,9 @@ src_compile() {
 }
 
 src_install() {
+
+	newinitd "${FILESDIR}"/prest.initd prest
+	newconfd "${FILESDIR}"/prest.confd prest
+
 	dobin prest
 }
