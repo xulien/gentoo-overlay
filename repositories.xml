@@ -1,0 +1,11 @@
+<repositories encoding="unicode" version="1.1">
+  <repo priority="50" quality="experimental">
+    <name>xulien</name>
+    <description />
+    <owner>
+      <email>julien@brunet.io</email>
+      <name>xulien</name>
+    </owner>
+    <source type="git">https://github.com/xulien/gentoo-overlay.git</source>
+  </repo>
+</repositories>
