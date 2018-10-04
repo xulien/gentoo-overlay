@@ -12,7 +12,7 @@ DEPEND="dev-lang/go"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="amd64 x86 arm"
+KEYWORDS="~amd64 ~x86"
 
 EGO_VENDOR=(
 	github.com/BurntSushi/toml v0.3.0 
