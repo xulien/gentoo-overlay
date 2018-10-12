@@ -1,19 +1,19 @@
-DEBUG=true		# default: false
+#DEBUG=			# default: false
 
 ### HTTP ###
 #HTTP_HOST=		# default: 127.0.0.1
-HTTP_PORT=4000		# default: 3000
+#HTTP_PORT=		# default: 3000
 
 ### PG ###
 #PG_HOST=		# default: 127.0.0.1
 #PG_USER=		# default: postgres
 #PG_PASS=		# default: postgres
-PG_DATABASE=ofourno_dev # must be set
+PG_DATABASE=mydatabase	# must be set
 #PG_PORT=		# default: 5432
 #PG_URL="postgresql://user:pass@localhost/mydatabase/?sslmode=disable"
 
 ### QUERIES ###
-QUERIES_LOCATION="/home/jules/Travail/ofo/front/prest/queries"
+#QUERIES_LOCATION="~/prest/queries"
 
 ### CORS ###
 #CORS_ALLOWORIGIN=	# default: *
