@@ -4,26 +4,38 @@
 
 name="prest daemon"
 description="pREST is a way to serve a RESTful API from any databases written in Go"
+logfile="/var/log/${RC_SVCNAME}.log"
+
+pidfile=/run/${RC_SVCNAME}.pid
 
 start() {
 	ebegin "starting ${RC_SVCNAME}"
-	/usr/bin/env PREST_HTTP_HOST=${PREST_HTTP_HOST} \
-	PREST_HTTP_PORT=${PREST_HTTP_PORT} \
-	PREST_PG_HOST=${PREST_PG_HOST} \
-	PREST_PG_USER=${PREST_PG_USER} \
-	PREST_PG_PASS=${PREST_PG_PASS} \
-	PREST_PG_DATABASE=${PREST_PG_DATABASE} \
-	PREST_PG_PORT=${PREST_PG_PORT} \
-	PREST_QUERIES_LOCATION=${PREST_QUERIES_LOCATION:-} \
-	PREST_CORS_ALLOWORIGIN=${PREST_CORS_ALLOWORIGIN:-} \
-	PREST_SSL_MODE=${PREST_SSL_MODE:-} \
-	PREST_JWT_DEFAULT=${PREST_JWT_DEFAULT:-} \
-	start-stop-daemon --start --make-pidfile --background --pidfile /run/${RC_SVCNAME}.pid --exec /usr/bin/prest
+	/usr/bin/env DEBUG=${DEBUG:-false} \
+	PREST_HTTP_HOST=${HTTP_HOST:-127.0.0.1} \
+	PREST_HTTP_PORT=${HTTP_PORT:-3000} \
+	PREST_PG_HOST=${PG_HOST:-127.0.0.1} \
+	PREST_PG_USER=${PG_USER:-postgres} \
+	PREST_PG_PASS=${PG_PASS:-postgres} \
+	PREST_PG_DATABASE=${PG_DATABASE} \
+	PREST_PG_PORT=${PG_PORT:-5432} \
+	PREST_PG_URL=${PG_URL:-} \
+	PREST_QUERIES_LOCATION=${QUERIES_LOCATION:-} \
+	PREST_CORS_ALLOWORIGIN=${CORS_ALLOWORIGIN:-*} \
+	PREST_SSL_MODE=${SSL_MODE:-disable} \
+	PREST_SSL_CERT=${SSL_CERT:-} \
+	PREST_SSL_KEY=${SSL_KEY:-} \
+	PREST_SSL_ROOT_CERT=${SSL_ROOT_CERT:-} \
+	PREST_JWT_DEFAULT=${JWT_DEFAULT:-false} \
+	PREST_JWT_KEY=${JWT_KEY:-} \
+	PREST_JWT_ALGO=${JWT_ALGO:-HS256} \
+	start-stop-daemon --start --make-pidfile \
+	--background --pidfile "${pidfile}" \
+	--exec /usr/bin/prest -1 ${logfile} -2 ${logfile}
 	eend $?
 }
 
 stop() {
 	ebegin "stopping ${RC_SVCNAME}"
-	start-stop-daemon --stop --pidfile /run/${RC_SVCNAME}.pid
+	start-stop-daemon --stop --pidfile "${pidfile}"
         eend $?
 }
