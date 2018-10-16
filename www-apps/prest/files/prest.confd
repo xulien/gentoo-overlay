@@ -16,7 +16,9 @@ PG_DATABASE=mydatabase	# must be set
 #QUERIES_LOCATION="~/prest/queries"
 
 ### CORS ###
-#CORS_ALLOWORIGIN=	# default: *
+#CORS_ALLOWORIGIN=  # default: *
+#CORS_ALLOWHEADERS= # default: "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization"
+
 
 ### SSL ###
 #SSL_MODE=		# default: disable
