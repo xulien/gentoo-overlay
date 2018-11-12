@@ -13,7 +13,7 @@ PG_DATABASE=mydatabase	# must be set
 #PG_URL="postgresql://user:pass@localhost/mydatabase/?sslmode=disable"
 
 ### QUERIES ###
-#QUERIES_LOCATION="~/prest/queries"
+#QUERIES_LOCATION="/var/prest/queries"
 
 ### CORS ###
 #CORS_ALLOWORIGIN=  # default: *

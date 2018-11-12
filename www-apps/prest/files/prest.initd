@@ -4,9 +4,14 @@
 
 name="prest daemon"
 description="pREST is a way to serve a RESTful API from any databases written in Go"
-logfile="/var/log/${RC_SVCNAME}.log"
 
+logfile="/var/log/${RC_SVCNAME}.log"
 pidfile=/run/${RC_SVCNAME}.pid
+
+depend() {
+	use net
+	need postgresql
+}
 
 start() {
 	ebegin "starting ${RC_SVCNAME}"
@@ -21,7 +26,7 @@ start() {
 	PREST_PG_URL=${PG_URL:-} \
 	PREST_QUERIES_LOCATION=${QUERIES_LOCATION:-} \
 	PREST_CORS_ALLOWORIGIN=${CORS_ALLOWORIGIN:-*} \
-    PREST_CORS_ALLOWHEADERS=${CORS_ALLOWHEADERS:-"Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization"} \
+	PREST_CORS_ALLOWHEADERS=${CORS_ALLOWHEADERS:-"Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization"} \
 	PREST_SSL_MODE=${SSL_MODE:-disable} \
 	PREST_SSL_CERT=${SSL_CERT:-} \
 	PREST_SSL_KEY=${SSL_KEY:-} \
