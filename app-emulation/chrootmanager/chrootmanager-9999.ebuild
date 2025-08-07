@@ -25,7 +25,7 @@ CRATES="
 
 inherit cargo desktop
 
-DESCRIPTION="Gentoo chroot management tool with GUI and CLI"
+DESCRIPTION="Gentoo chroot management tool"
 HOMEPAGE="https://github.com/xulien/chrootmanager"
 
 if [[ ${PV} == 9999 ]]; then
@@ -45,12 +45,6 @@ RDEPEND="
 	sys-apps/util-linux
 	app-arch/tar
 	sys-fs/squashfs-tools
-	gui? (
-		x11-libs/libxcb
-		x11-libs/libX11
-		media-libs/fontconfig
-		media-libs/freetype
-	)
 "
 
 DEPEND="${RDEPEND}
@@ -76,25 +70,11 @@ src_configure() {
 }
 
 src_compile() {
-	# Compile CLI package
-	cargo_src_compile --package cli
-
-	# Compile GUI package if requested
-	if use gui; then
-		cargo_src_compile --package gui
-	fi
+	cargo_src_compile
 }
 
 src_install() {
-	# Install CLI binary
-	newbin target/release/cli chrootmanager-cli
-
-	# Install GUI binary if built
-	if use gui; then
-		newbin target/release/gui chrootmanager-gui
-		# Desktop file for GUI
-		make_desktop_entry chrootmanager-gui "Chroot Manager" "utilities-terminal" "System;Utility;"
-	fi
+	newbin target/release/chrootmanager chrootmanager
 
 	# Install documentation if it exists
 	if [[ -f README.md ]]; then
@@ -105,17 +85,29 @@ src_install() {
 	cat > "${T}"/README << EOF
 Chroot Manager - Gentoo chroot management tool
 
-CLI usage: chrootmanager-cli --help
-$(use gui && echo "GUI usage: chrootmanager-gui")
+Usage: chrootmanager --help
+
+This tool helps manage Gentoo chroots for development and testing.
+Commands:
+  create    Create a new chroot
+  list      List existing chroots
+  mirror    Setup mirrors
+
+For more information, see: ${HOMEPAGE}
 EOF
 	dodoc "${T}"/README
 }
 
 pkg_postinst() {
-	elog "Chroot Manager has been installed."
-	elog ""
-	elog "CLI usage: chrootmanager-cli --help"
-	if use gui; then
-		elog "GUI usage: chrootmanager-gui"
-	fi
+	elog "Chroot Manager has been installed successfully."
+    	elog ""
+    	elog "Usage: chrootmanager --help"
+    	elog ""
+    	elog "Available commands:"
+    	elog "  chrootmanager create    - Create a new chroot"
+    	elog "  chrootmanager list      - List existing chroots"
+    	elog "  chrootmanager mirror    - Setup mirrors"
+    	elog ""
+    	elog "This tool requires root privileges to manage chroots."
+    	elog "Make sure to run it with appropriate permissions."
 }
