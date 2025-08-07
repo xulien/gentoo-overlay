@@ -19,8 +19,6 @@ CRATES="
 	tokio-stream-0.1.17
 	inquire-0.7.5
 	colored-3.0.0
-	slint-build-1.12.1
-	slint-1.12.1
 "
 
 inherit cargo desktop
@@ -39,7 +37,6 @@ fi
 
 LICENSE="MIT"
 SLOT="0"
-IUSE="gui"
 
 RDEPEND="
 	sys-apps/util-linux
@@ -100,14 +97,11 @@ EOF
 
 pkg_postinst() {
 	elog "Chroot Manager has been installed successfully."
-    	elog ""
-    	elog "Usage: chrootmanager --help"
-    	elog ""
-    	elog "Available commands:"
-    	elog "  chrootmanager create    - Create a new chroot"
-    	elog "  chrootmanager list      - List existing chroots"
-    	elog "  chrootmanager mirror    - Setup mirrors"
-    	elog ""
-    	elog "This tool requires root privileges to manage chroots."
-    	elog "Make sure to run it with appropriate permissions."
+	elog ""
+	elog "Usage: chrootmanager --help"
+	elog ""
+	elog "Available commands:"
+	elog "  chrootmanager create    - Create a new chroot"
+	elog "  chrootmanager list      - List existing chroots"
+	elog "  chrootmanager mirror    - Setup mirrors"
 }
