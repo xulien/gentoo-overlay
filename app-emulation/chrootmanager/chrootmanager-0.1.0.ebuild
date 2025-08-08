@@ -262,45 +262,25 @@ CRATES="
 
 inherit cargo
 
-DESCRIPTION=""
-HOMEPAGE=""
+DESCRIPTION="Gentoo chroot management tool"
+HOMEPAGE="https://github.com/xulien/chrootmanager"
 SRC_URI="
-	${CARGO_CRATE_URIS}
+	https://github.com/xulien/chrootmanager/archive/v${PV}.tar.gz -> ${P}.tar.gz
+	$(cargo_crate_uris)
 "
 
-LICENSE=""
-# Dependent crate licenses
-LICENSE+=" Apache-2.0 BSD ISC MIT MPL-2.0 Unicode-3.0 ZLIB"
+LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 
-RDEPEND="
-	sys-apps/util-linux
-	app-arch/tar
-	sys-fs/squashfs-tools
-"
-
-DEPEND="${RDEPEND}
-	virtual/pkgconfig
-"
-
+DEPEND=""
+RDEPEND="${DEPEND}"
 BDEPEND="
 	>=virtual/rust-1.75.0
 "
 
-src_unpack() {
-	if [[ ${PV} == 9999 ]]; then
-		git-r3_src_unpack
-		cargo_live_src_unpack
-	else
-		cargo_src_unpack
-	fi
-}
-
-src_configure() {
-	# No features to configure at workspace level
-	cargo_src_configure
-}
+# Variable S pour définir le répertoire source correct
+S="${WORKDIR}/${P}"
 
 src_compile() {
 	cargo_src_compile
@@ -308,41 +288,4 @@ src_compile() {
 
 src_install() {
 	newbin target/release/chrootmanager chrootmanager
-
-	# Install documentation if it exists
-	if [[ -f README.md ]]; then
-		dodoc README.md
-	fi
-
-	# Create a simple documentation file
-	cat > "${T}"/README << EOF
-Chroot Manager - Gentoo chroot management tool
-
-Usage: chrootmanager --help
-
-This tool helps manage Gentoo chroots for development and testing.
-Commands:
-  create    Create a new chroot
-  list      List existing chroots
-  mirror    Setup mirrors
-
-For more information, see: ${HOMEPAGE}
-EOF
-	dodoc "${T}"/README
-}
-
-pkg_postinst() {
-	elog "Chroot Manager has been installed successfully."
-	elog ""
-	elog "Usage: chrootmanager --help"
-	elog ""
-	elog "Available commands:"
-	elog "  chrootmanager create    - Create a new chroot"
-	elog "  chrootmanager list      - List existing chroots (and enter them in interactive mode)"
-	elog "  chrootmanager mirror    - Setup mirrors"
-	elog ""
-	elog "Features:"
-	elog "  - Interactive mode for all commands with -i flag"
-	elog "  - Dynamic profile discovery from Gentoo mirrors"
-	elog "  - Geographic mirror selection"
 }
