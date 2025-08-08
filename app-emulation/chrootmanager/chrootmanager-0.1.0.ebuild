@@ -48,7 +48,7 @@ DEPEND="${RDEPEND}
 "
 
 BDEPEND="
-	>=virtual/rust-1.70.0
+	>=virtual/rust-1.75.0
 "
 
 src_unpack() {
@@ -101,6 +101,11 @@ pkg_postinst() {
 	elog ""
 	elog "Available commands:"
 	elog "  chrootmanager create    - Create a new chroot"
-	elog "  chrootmanager list      - List existing chroots"
+	elog "  chrootmanager list      - List existing chroots (and enter them in interactive mode)"
 	elog "  chrootmanager mirror    - Setup mirrors"
+	elog ""
+	elog "Features:"
+	elog "  - Interactive mode for all commands with -i flag"
+	elog "  - Dynamic profile discovery from Gentoo mirrors"
+	elog "  - Geographic mirror selection"
 }
