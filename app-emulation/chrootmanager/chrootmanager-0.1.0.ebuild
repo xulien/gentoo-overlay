@@ -262,7 +262,7 @@ inherit cargo
 
 DESCRIPTION="Gentoo chroot management tool"
 HOMEPAGE="https://github.com/xulien/chrootmanager"
-SRC_URI="
+SRC_URI="https://github.com/xulien/chrootmanager/archive/v${PV}.tar.gz -> ${P}.tar.gz
 	${CARGO_CRATE_URIS}
 "
 
