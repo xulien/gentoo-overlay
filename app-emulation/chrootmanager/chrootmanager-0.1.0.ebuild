@@ -10,10 +10,9 @@ CRATES="
 	home-0.5.11
 	tokio-1.47.1
 	serde-1.0.219
-	strum-0.27.2
 	log-0.4.27
 	reqwest-0.12.22
-	clap-4.5.42
+	clap-4.5.43
 	env_logger-0.11.8
 	xml-rs-0.8.27
 	tokio-stream-0.1.17
