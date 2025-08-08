@@ -65,7 +65,7 @@ CRATES="
 	getrandom@0.3.3
 	gimli@0.31.1
 	h2@0.4.12
-	hashbrown@0.15.5
+	hashbrown@0.15.4
 	heck@0.5.0
 	home@0.5.11
 	http-body-util@0.1.3
